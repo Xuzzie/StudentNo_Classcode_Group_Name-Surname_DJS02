@@ -7,8 +7,18 @@ form.addEventListener("submit", (event) => {
   const entries = new FormData(event.target);
   const { dividend, divider } = Object.fromEntries(entries);
   const decRemovedResult = Math.trunc(dividend / divider); // went to mdn docs and learned that  Math.trunc can remove just the decimal without rounding
-  const conDivide = Number(dividend);
+
+  const conDividend = Number(dividend);
   const conDivider = Number(divider);
+
+  if (isNaN(conDividend) || isNaN(conDivider)) {
+    console.error("Something critical went wrong. Please reload the page");
+    result.innerText = "Something critical went wrong. Please reload the page";
+    window.location.href = "error.html";
+    return;
+
+    //throw new Error("Invalid input: Not a number");
+  }
 
   if (!dividend) {
     return (result.innerText =
@@ -19,6 +29,12 @@ form.addEventListener("submit", (event) => {
     return (result.innerText =
       "Division not performed. Both values are required in inputs. Try again.");
   }
+
+  // if ((!divider, dividend == /["0-9"],["0,1"]/)) {
+  //   return console.error(
+  //   "“Something critical went wrong. Please reload the page"
+  //   );
+  //}
 
   //if (zerodDivider === "0") {
   //return (result.innerText =
